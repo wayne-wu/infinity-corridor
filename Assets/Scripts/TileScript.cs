@@ -37,8 +37,6 @@ public class TileScript : MonoBehaviour
 
     void SpawnObstacles()
     {
-        bool[] usedIndices = new bool[26];
-
         for(int i = 0; i < obstaclesPerTile; i++)
         {
             int obstacleSpawnIdx = Random.Range(0, 28);
@@ -54,5 +52,4 @@ public class TileScript : MonoBehaviour
             }
         }
     }
-
 }

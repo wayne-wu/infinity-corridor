@@ -8,11 +8,14 @@ public class WorldGenerator : MonoBehaviour
 
     public float speed;
     public int visibleTiles;
+    public int windowPeriod = 2;
 
     public bool stop;
 
     Queue<GameObject> tiles;
     GameObject lastTile;
+
+    int counter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +47,28 @@ public class WorldGenerator : MonoBehaviour
     {
         Vector3 spawnPos = !lastTile ? Vector3.zero : lastTile.transform.GetChild(0).position;
         GameObject newTile = Instantiate(tileObj, spawnPos, Quaternion.identity);
+
+        if (counter == windowPeriod)
+        {
+            SetVariant(/*left wall*/ newTile.transform.GetChild(3), 1);
+            SetVariant(/*right wall*/ newTile.transform.GetChild(4), 1);
+            counter = 0;
+        }
+        counter++;
+
         newTile.GetComponent<TileScript>().obstaclesPerTile = obstacles;
         lastTile = newTile;
         tiles.Enqueue(newTile);
+
+        counter++;
+    }
+
+    void SetVariant(Transform xform, int idx)
+    {
+        for(int i = 0; i < xform.childCount; i++)
+        {
+            xform.GetChild(i).gameObject.SetActive(i == idx);
+        }
     }
 
     public void RemoveTile()

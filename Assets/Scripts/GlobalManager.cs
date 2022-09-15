@@ -15,6 +15,7 @@ public class GlobalManager : MonoBehaviour
 
     float scoreTimer;
     int score;
+    int highScore;
 
     bool gameOver = false;
 
@@ -24,6 +25,7 @@ public class GlobalManager : MonoBehaviour
     WorldGenerator generator;
     PlayerControl player;
     TMP_Text scoreText;
+    TMP_Text highScoreText;
 
     List<GameObject> gameOverObjs;
 
@@ -35,6 +37,8 @@ public class GlobalManager : MonoBehaviour
         Physics.gravity = new Vector3(0, -9.81f, 0);
 
         score = 0;
+        highScore = PlayerPrefs.GetInt("highscore");
+
         generator = GameObject.FindObjectOfType<WorldGenerator>();
         player = GameObject.FindObjectOfType<PlayerControl>();
 
@@ -42,13 +46,17 @@ public class GlobalManager : MonoBehaviour
 
         Canvas canvas = FindObjectOfType<Canvas>();
         int childCount = canvas.transform.childCount;
-        for(int i = 0; i < childCount-1; i++)
+        for(int i = 0; i < childCount-2; i++)
         {
             gameOverObjs.Add(canvas.gameObject.transform.GetChild(i).gameObject);
         }
 
         scoreText = canvas.gameObject.transform.GetChild(
+            childCount - 2).gameObject.GetComponent<TMP_Text>();
+        highScoreText = canvas.gameObject.transform.GetChild(
             childCount - 1).gameObject.GetComponent<TMP_Text>();
+
+        highScoreText.text = String.Format("HIGHSCORE: {0}", highScore);
     }
 
     // Update is called once per frame
@@ -57,9 +65,9 @@ public class GlobalManager : MonoBehaviour
         if (gameOver) return;
 
         scoreTimer += Time.deltaTime;
-        if (scoreTimer > 5f)
+        if (scoreTimer > 1.0f)
         {
-            score += 5;
+            score++;
             scoreText.text = String.Format("SCORE: {0}", score);
             scoreTimer = 0;
         }
@@ -82,6 +90,8 @@ public class GlobalManager : MonoBehaviour
         }
         else
         {
+            AudioSource.PlayClipAtPoint(gameOverClip, player.transform.position, 0.5f);
+
             gameOver = true;
 
             generator.stop = true;
@@ -90,12 +100,22 @@ public class GlobalManager : MonoBehaviour
             foreach (GameObject obj in gameOverObjs)
                 obj.SetActive(true);
 
-            AudioSource.PlayClipAtPoint(gameOverClip, player.transform.position, 0.5f);
+            if(score > highScore)
+            {
+                highScore = score;
+                PlayerPrefs.SetInt("highscore", highScore);
+                PlayerPrefs.Save();
+            }
         }
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
