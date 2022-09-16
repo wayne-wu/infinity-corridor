@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour
 {
+    public AudioClip fallClip;
     public AudioClip hitClip;
 
     GlobalManager gameManager;
@@ -24,9 +25,12 @@ public class ObstacleScript : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
+            AudioSource.PlayClipAtPoint(hitClip, gameObject.transform.position);
             gameManager.EndGame();
         }
-
-        AudioSource.PlayClipAtPoint(hitClip, gameObject.transform.position);
+        else
+        {
+            AudioSource.PlayClipAtPoint(fallClip, gameObject.transform.position);
+        }
     }
 }

@@ -52,7 +52,7 @@ public class PlayerControl : MonoBehaviour
         else if (changeGravity && Input.GetKeyDown("right"))
             ChangeGravity(90);
         else if (changeGravity && Input.GetKeyDown("up"))
-            ChangeGravity(180);
+            ChangeGravity(180);            
     }
 
     void FixedUpdate()

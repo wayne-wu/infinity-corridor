@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
-  gravityScale: 2
+  gravityScale: 3
   swooshClip: {fileID: 8300000, guid: efe2cd2723829424e94154dd465934e9, type: 3}
   hasInvisible: 0
 --- !u!1 &535990511

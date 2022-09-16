@@ -97,7 +97,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5802281710629823660
 MonoBehaviour:
@@ -111,7 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd578ecded5fb6448b41f34f8dbf930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 8300000, guid: 8f3e7161fc77d094084003c0a5e0e493, type: 3}
+  fallClip: {fileID: 8300000, guid: 7708ee2e4120c8a47bc21eb9e1515b1d, type: 3}
+  hitClip: {fileID: 8300000, guid: 4386c6d82d45e2348bd80e737d328522, type: 3}
 --- !u!54 &-5590753561794572901
 Rigidbody:
   m_ObjectHideFlags: 0

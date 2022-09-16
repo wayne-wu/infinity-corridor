@@ -78,6 +78,10 @@ public class GlobalManager : MonoBehaviour
             generator.speed += 0.01f;
             paceTimer = 0;
         }
+
+        if (Mathf.Abs(player.transform.position.x) > 6.0f ||
+            Mathf.Abs(player.transform.position.y) > 6.0f)
+            EndGame();
     }
 
     public void EndGame()
