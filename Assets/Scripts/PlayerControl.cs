@@ -10,8 +10,9 @@ public class PlayerControl : MonoBehaviour
 
     public AudioClip swooshClip;
 
-    const float MOVE = 3.0f;
+    const float MOVE = 10.0f/3.0f;
     Vector3 rightVec;  // the right vector
+    Vector3 upVec;
 
     Rigidbody rbd;
 
@@ -31,7 +32,10 @@ public class PlayerControl : MonoBehaviour
         renderer = gameObject.GetComponent<MeshRenderer>();
 
         rightVec = Vector3.right;
+        upVec = Vector3.up;
         rotate = 0.0f;
+
+        MakeVisible();  // make sure collision is on
     }
 
     // Update is called once per frame
@@ -82,20 +86,23 @@ public class PlayerControl : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(swooshClip, gameObject.transform.position);
 
-        Physics.gravity = Quaternion.Euler(0, 0, angle) * Physics.gravity;
-
         if (Mathf.Abs(rotate) > eps)  // Finish the last rotation
             transform.Rotate(Vector3.forward * rotate);
 
+        Quaternion rot = Quaternion.Euler(0, 0, angle);
+
+        Physics.gravity = rot * Physics.gravity;
+
         Vector3 prevRightVec = rightVec;
-        rightVec = Quaternion.Euler(0, 0, angle) * rightVec;
+        rightVec = rot * rightVec;
 
         // TODO: See if there's a cleaner way to do this
-        if(Mathf.Abs(Vector3.Dot(rightVec, prevRightVec)) < eps)
-        {
-            Vector3 newPos = Mathf.Sign(angle) * -MOVE * rightVec;
-            newPos.z = transform.position.z;
-            transform.position = newPos;
+        // Check if it's turning left or right
+        if (Mathf.Abs(Vector3.Dot(rightVec, prevRightVec)) < eps)
+        {   
+            transform.position = Vector3.Scale(
+                new Vector3(Mathf.Abs(prevRightVec.x), Mathf.Abs(prevRightVec.y), 1), 
+                transform.position) - Mathf.Sign(angle) * MOVE * rightVec;
         }
 
         rotate = angle;

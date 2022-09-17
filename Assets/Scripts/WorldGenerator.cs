@@ -50,8 +50,8 @@ public class WorldGenerator : MonoBehaviour
 
         if (counter == windowPeriod)
         {
-            SetVariant(/*left wall*/ newTile.transform.GetChild(3), 1);
-            SetVariant(/*right wall*/ newTile.transform.GetChild(4), 1);
+            SetWallVariant(/*left wall*/ newTile.transform.GetChild(3), 2);
+            SetWallVariant(/*right wall*/ newTile.transform.GetChild(4), 2);
             counter = 0;
         }
         counter++;
@@ -63,9 +63,9 @@ public class WorldGenerator : MonoBehaviour
         counter++;
     }
 
-    void SetVariant(Transform xform, int idx)
+    void SetWallVariant(Transform xform, int idx)
     {
-        for(int i = 0; i < xform.childCount; i++)
+        for(int i = 1; i < xform.childCount; i++)
         {
             xform.GetChild(i).gameObject.SetActive(i == idx);
         }

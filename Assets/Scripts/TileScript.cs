@@ -48,7 +48,10 @@ public class TileScript : MonoBehaviour
                 if (Random.value < 0.05)
                     prefab = resourcePrefab;
 
-                Instantiate(prefab, spawnPoint.position, Quaternion.identity, transform);
+                int x_rot = Random.Range(-1, 1);
+                int y_rot = Random.Range(-1, 1);
+                int z_rot = Random.Range(-1, 1);
+                Instantiate(prefab, spawnPoint.position, Quaternion.Euler(x_rot*90.0f, y_rot*90.0f, z_rot*90.0f), transform);
             }
         }
     }
