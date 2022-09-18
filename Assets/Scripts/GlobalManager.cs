@@ -118,6 +118,11 @@ public class GlobalManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void Quit()
     {
         Application.Quit();
