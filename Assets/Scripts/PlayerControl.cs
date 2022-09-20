@@ -16,11 +16,16 @@ public class PlayerControl : MonoBehaviour
 
     Rigidbody rbd;
 
+    Animator animator;
+
     MeshRenderer renderer;
 
     public bool hasInvisible;
 
     bool alive;
+    bool isGrounded;
+
+    public float distToGround = 1.0f;
 
     const float eps = 0.0001f;
     float rotate; 
@@ -30,6 +35,8 @@ public class PlayerControl : MonoBehaviour
     {
         rbd = gameObject.GetComponent<Rigidbody>();
         renderer = gameObject.GetComponent<MeshRenderer>();
+
+        animator = gameObject.GetComponentInChildren<Animator>();
 
         rightVec = Vector3.right;
         upVec = Vector3.up;
@@ -72,6 +79,11 @@ public class PlayerControl : MonoBehaviour
             // Adding an extra force here so that the player falls faster
             rbd.AddForce(Physics.gravity*gravityScale);
         }
+
+        animator.SetBool("IsGrounded", Physics.Raycast(
+            transform.position, 
+            Vector3.Normalize(Physics.gravity), 
+            distToGround + 0.1f));
     }
 
     void Dodge(bool isRight)
