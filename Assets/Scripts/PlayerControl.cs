@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour
 
     Animator animator;
 
-    MeshRenderer renderer;
+    SkinnedMeshRenderer renderer;
 
     public bool hasInvisible;
 
@@ -34,7 +34,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         rbd = gameObject.GetComponent<Rigidbody>();
-        renderer = gameObject.GetComponent<MeshRenderer>();
+        renderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
 
         animator = gameObject.GetComponentInChildren<Animator>();
 
