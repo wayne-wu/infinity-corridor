@@ -654,9 +654,9 @@ GameObject:
   - component: {fileID: 485088986}
   - component: {fileID: 485088985}
   - component: {fileID: 485088984}
-  - component: {fileID: 485088983}
   - component: {fileID: 485088988}
   - component: {fileID: 485088987}
+  - component: {fileID: 485088989}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -664,20 +664,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &485088983
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 485088982}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &485088984
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -780,6 +766,19 @@ MonoBehaviour:
   swooshClip: {fileID: 8300000, guid: efe2cd2723829424e94154dd465934e9, type: 3}
   hasInvisible: 0
   distToGround: 1
+--- !u!65 &485088989
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485088982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &535990511
 GameObject:
   m_ObjectHideFlags: 0
