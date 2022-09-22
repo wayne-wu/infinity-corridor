@@ -6,6 +6,8 @@ This is a 3D endless running game (with a small twist) developed in Unity. The t
 
 ## Gameplay
 
+https://user-images.githubusercontent.com/77313916/191864933-23331cdb-32e4-4431-bb22-547d41b81a52.mp4
+
 The basic gameplay is to use the left and right arrow keys to dodge obstacles. But player can also switch the gravity direction by holding shift and pressing the arrow keys. This is sometimes necessary to dodge the obstacles.
 
 There are three main obstacles to avoid:
