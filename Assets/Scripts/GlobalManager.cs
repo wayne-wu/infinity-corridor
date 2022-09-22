@@ -10,7 +10,6 @@ using TMPro;
 public class GlobalManager : MonoBehaviour
 {
     public float paceMultiplier = 0.0001f;
-
     public AudioClip gameOverClip;
 
     float scoreTimer;
@@ -94,8 +93,6 @@ public class GlobalManager : MonoBehaviour
         }
         else
         {
-            AudioSource.PlayClipAtPoint(gameOverClip, player.transform.position, 0.5f);
-
             gameOver = true;
 
             generator.stop = true;
@@ -110,6 +107,8 @@ public class GlobalManager : MonoBehaviour
                 PlayerPrefs.SetInt("highscore", highScore);
                 PlayerPrefs.Save();
             }
+
+            AudioSource.PlayClipAtPoint(gameOverClip, player.transform.position);
         }
     }
 

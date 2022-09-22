@@ -130,9 +130,8 @@ public class PlayerControl : MonoBehaviour
     {
         hasInvisible = false;
 
-        Color c = renderer.material.color;
-        c.a = 0.25f;
-        renderer.material.SetColor("_Color", c);
+        Color c = Color.red;
+        renderer.material.EnableKeyword("_EMISSION");
 
         // Temporarily ignore collision between player and obstacles
         Physics.IgnoreLayerCollision(3, 6, true);
@@ -143,9 +142,9 @@ public class PlayerControl : MonoBehaviour
 
     void MakeVisible()
     {
-        Color c = renderer.material.color;
-        c.a = 1.0f;
-        renderer.material.SetColor("_Color", c);
+        Color c = Color.white;
+        // renderer.material.SetColor("_Color", c);
+        renderer.material.DisableKeyword("_EMISSION");
         Physics.IgnoreLayerCollision(3, 6, false);
     }
 

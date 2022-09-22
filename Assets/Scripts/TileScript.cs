@@ -46,12 +46,14 @@ public class TileScript : MonoBehaviour
                 Transform spawnPoint = transform.GetChild(obstacleSpawnIdx);
                 GameObject prefab = Random.value < 0.2 ? dynamicObstaclePrefab : staticObstaclePrefab;
                 if (Random.value < 0.05)
-                    prefab = resourcePrefab;
-
-                int x_rot = Random.Range(-1, 1);
-                int y_rot = Random.Range(-1, 1);
-                int z_rot = Random.Range(-1, 1);
-                Instantiate(prefab, spawnPoint.position, Quaternion.Euler(x_rot*90.0f, y_rot*90.0f, z_rot*90.0f), transform);
+                    Instantiate(resourcePrefab, spawnPoint.position, Quaternion.identity, transform);
+                else
+                {
+                    int x_rot = Random.Range(-1, 1);
+                    int y_rot = Random.Range(-1, 1);
+                    int z_rot = Random.Range(-1, 1);
+                    Instantiate(prefab, spawnPoint.position, Quaternion.Euler(x_rot * 90.0f, y_rot * 90.0f, z_rot * 90.0f), transform);
+                }
             }
         }
     }
