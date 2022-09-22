@@ -28,7 +28,12 @@ public class PlayerControl : MonoBehaviour
     public float distToGround = 1.0f;
 
     const float eps = 0.0001f;
-    float rotate; 
+    float rotate;
+
+
+    Vector3 touchStartPos;
+    Vector3 touchEndPos;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,22 +53,53 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("left"))
+        if (Input.touchCount > 0)
         {
-            Dodge(false);
-        }
-        else if (Input.GetKeyDown("right"))
-        {
-            Dodge(true);
-        }
+            Touch touch = Input.GetTouch(0);
 
-        bool changeGravity = Input.GetKey(KeyCode.LeftShift);
-        if (changeGravity && Input.GetKeyDown("left"))
-            ChangeGravity(-90);
-        else if (changeGravity && Input.GetKeyDown("right"))
-            ChangeGravity(90);
-        else if (changeGravity && Input.GetKeyDown("up"))
-            ChangeGravity(180);            
+            if (touch.phase == TouchPhase.Began)
+            {
+                touchStartPos = touch.position;            
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                touchEndPos = touch.position;
+
+                Vector3 dir = touchEndPos - touchStartPos;
+                if (dir.magnitude < 0.01)
+                {
+                    Dodge(touchEndPos.x > Screen.width / 2.0f);
+                }
+                else if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+                {
+                    ChangeGravity(dir.x > 0 ? 90 : -90);
+                }
+                else if (dir.y > 0)
+                {
+                    ChangeGravity(180);
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown("left"))
+            {
+                Dodge(false);
+            }
+            else if (Input.GetKeyDown("right"))
+            {
+                Dodge(true);
+            }
+
+            bool changeGravity = Input.GetKey(KeyCode.LeftShift);
+            if (changeGravity && Input.GetKeyDown("left"))
+                ChangeGravity(-90);
+            else if (changeGravity && Input.GetKeyDown("right"))
+                ChangeGravity(90);
+            else if (changeGravity && Input.GetKeyDown("up"))
+                ChangeGravity(180);
+        }
+           
     }
 
     void FixedUpdate()
